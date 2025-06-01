@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>원주자이센트로</title>
-    <link href="https://cdn.jsdelivr.net/font-nanum/1.0/nanumbarungothic/nanumbarungothic.css" rel="stylesheet">
+    <title>원주 XI 센트로 - 원주 최초의 자이</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* 기본 스타일 */
         * {
             margin: 0;
             padding: 0;
@@ -14,706 +13,317 @@
         }
 
         body {
-            font-family: 'Nanum Barun Gothic', sans-serif;
+            font-family: 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: #3d3d3d;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* 헤더 스타일 */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
             padding: 15px 0;
+            width: 100%;
         }
 
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo img {
-            height: 32px;
-        }
-
-        .nav {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav button {
-            background: none;
-            border: none;
-            color: #666;
-            font-size: 16px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .nav button:hover {
-            color: #2563eb;
-        }
-
-        /* 히어로 섹션 */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(79, 172, 254, 0.8) 0%, rgba(0, 242, 254, 0.6) 100%),
-                        url('https://ext.same-assets.com/2475788019/2197156834.jpeg') center/cover;
-            display: flex;
-            align-items: center;
-            color: white;
+        .content-wrapper {
+            width: 100%;
+            max-width: 1200px;
             position: relative;
         }
 
-        .hero-content {
-            max-width: 600px;
-            margin-top: 80px;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .contact-box {
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
-        }
-
-        .phone-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #46bad2;
-            margin-top: 10px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: #1d4ed8;
-        }
-
-        /* 정보 카드 */
-        .info-card {
-            position: absolute;
-            top: 120px;
-            right: 30px;
-            background: white;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            max-width: 300px;
-            color: #333;
-        }
-
-        .info-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        /* 섹션 스타일 */
-        .section {
-            padding: 80px 0;
-        }
-
         .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 50px;
-            color: #3f4f57;
-        }
-
-        .bg-gray {
-            background: #f8fafc;
-        }
-
-        /* 연락처 섹션 */
-        .contact-section {
-            text-align: center;
-        }
-
-        .contact-phone {
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 15px;
-            margin: 30px 0;
-            font-size: 3rem;
-            font-weight: bold;
-            color: #46bad2;
+            align-items: center;
+            padding: 60px 0;
+            font-family: 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif;
+            font-weight: 400;
+            font-size: 60px;
+            color: rgba(61,61,61,1);
+            line-height: 120px;
         }
 
-        .contact-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+        .image-block {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-bottom: 3px;
+        }
+
+        .logo-image {
+            width: 227px;
+            height: 120px;
+        }
+
+        .video-container {
+            padding: 60px 0;
+            width: 100%;
             max-width: 1000px;
             margin: 0 auto;
         }
 
-        .contact-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .contact-card:hover {
-            transform: translateY(-5px);
-        }
-
-        /* 입지환경 섹션 */
-        .location-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .location-features {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .location-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-            padding: 20px;
-            background: #f8fafc;
-            border-radius: 10px;
-        }
-
-        .location-item h4 {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .map-container {
-            background: #e5e7eb;
-            border-radius: 10px;
-            padding: 20px;
-            height: 400px;
-        }
-
-        .map-container img {
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            border-radius: 8px;
+            border: none;
         }
 
-        /* 특징 그리드 */
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+        /* 플로팅 전화 버튼 */
+        .floating-call-button {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
         }
 
-        .feature-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-header {
-            height: 200px;
+        .call-button {
             display: flex;
             align-items: center;
             justify-content: center;
+            background-color: #007AFF;
             color: white;
-            font-size: 4rem;
-        }
-
-        .feature-content {
-            padding: 25px;
-        }
-
-        .feature-content h3 {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .blue { background: linear-gradient(135deg, #3b82f6, #2563eb); }
-        .green { background: linear-gradient(135deg, #10b981, #059669); }
-        .purple { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-        .orange { background: linear-gradient(135deg, #f59e0b, #d97706); }
-
-        /* 단지개요 섹션 */
-        .development-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            margin-bottom: 50px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .stat-item {
-            background: #f8fafc;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-item h4 {
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .stat-value {
-            color: #2563eb;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .facilities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .facility-item {
-            text-align: center;
-        }
-
-        .facility-item img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        /* 푸터 */
-        .footer {
-            background: #1f2937;
-            color: white;
-            padding: 60px 0 30px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-section h4 {
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 8px;
-        }
-
-        .footer-section ul li button {
-            background: none;
-            border: none;
-            color: #9ca3af;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
             cursor: pointer;
-            font-size: 14px;
+            text-decoration: none;
         }
 
-        .footer-section ul li button:hover {
-            color: white;
+        .call-button:hover {
+            transform: scale(1.05);
+            background-color: #0056b3;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
         }
 
-        .phone-highlight {
-            color: #46bad2;
-            font-weight: bold;
+        .call-button:active {
+            transform: scale(0.95);
+            background-color: #004494;
         }
 
-        .footer-bottom {
-            border-top: 1px solid #374151;
-            margin-top: 40px;
-            padding-top: 30px;
-            text-align: center;
-            color: #9ca3af;
-            font-size: 14px;
+        .call-button:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0,122,255,0.5), 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        /* 반응형 */
+        .footer-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 36px 0;
+        }
+
+        .footer-text {
+            display: flex;
+            justify-content: center;
+            font-family: 'NanumGothic', -apple-system, Roboto, Helvetica, sans-serif;
+            font-weight: 400;
+            font-size: 13px;
+            color: rgba(61,61,61,1);
+            line-height: 20px;
+        }
+
+        /* 반응형 디자인 */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .contact-phone { font-size: 2rem; }
-            .location-grid, .development-grid { grid-template-columns: 1fr; }
-            .info-card { position: relative; top: auto; right: auto; margin: 20px auto; }
-            .nav { display: none; } /* 모바일에서 네비게이션 숨김 */
+            .floating-call-button {
+                display: block;
+            }
+
+            .section-title {
+                padding: 40px 0;
+                font-size: 48px;
+                line-height: 96px;
+            }
+
+            .logo-image {
+                width: 180px;
+                height: 95px;
+            }
+
+            .video-container {
+                padding: 40px 0;
+            }
+
+            .footer-info {
+                padding: 24px 0;
+            }
         }
 
-        /* 스크롤 애니메이션 */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-out;
-        }
+        @media (max-width: 480px) {
+            .section-title {
+                padding: 30px 0;
+                font-size: 36px;
+                line-height: 72px;
+            }
 
-        .animate-fade-in-up {
-            opacity: 1;
-            transform: translateY(0);
-        }
+            .logo-image {
+                width: 150px;
+                height: 80px;
+            }
 
-        /* 부드러운 스크롤 */
-        html {
-            scroll-behavior: smooth;
+            .video-container {
+                padding: 30px 0;
+            }
+
+            .footer-info {
+                padding: 16px 0;
+            }
+
+            .footer-text {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- 헤더 -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <img src="https://ext.same-assets.com/2475788019/946734683.png" alt="원주자이센트로">
+    <div class="container">
+        <!-- 플로팅 전화 버튼 -->
+        <div class="floating-call-button">
+            <a href="tel:1-877-5367" class="call-button" role="button" aria-label="전화 상담 1-877-5367" tabindex="0">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- 로고 섹션 -->
+            <div class="logo-section">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7bfaf2e95ed63930bc69731570827437ebaa4469?placeholderIfAbsent=true" alt="XI 로고" class="logo-image">
+            </div>
+
+            <!-- 메인 이미지들 -->
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fec7d201e15d74981a224250e52a93853%2Fb6cd2680ac464b05aa9e04e39363d464" alt="원주 XI 센트로 메인" class="image-block">
+            
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fec7d201e15d74981a224250e52a93853%2F94ecc25d45654a65bcb26a8e91028fe3" alt="원주 XI 센트로" class="image-block">
+
+            <!-- 사업 개요 -->
+            <div class="section-title">
+                <span>사업 개요</span>
+            </div>
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6210605eb4d62c44c4a00df7e49c2c8cf38fad9d?placeholderIfAbsent=true" alt="사업 개요" class="image-block">
+
+            <!-- YouTube 영상 -->
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/dG7zQYO2luU?autoplay=1&mute=1" title="원주 XI 센트로 홍보영상" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <nav class="nav">
-                    <button onclick="scrollToSection('home')">홈</button>
-                    <button onclick="scrollToSection('overview')">사업개요</button>
-                    <button onclick="scrollToSection('location')">입지환경</button>
-                    <button onclick="scrollToSection('development')">단지정보</button>
-                    <button onclick="scrollToSection('contact')">분양상담</button>
-                </nav>
-                <div class="auth-buttons">
-                    <button class="nav">로그인</button>
-                    <button class="nav">회원가입</button>
+            </div>
+
+            <!-- 프리미엄 -->
+            <div class="section-title">
+                <span>프리미엄</span>
+            </div>
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/08ed799187c3031dd8d2fbe332ac746ab91245f2?placeholderIfAbsent=true" alt="프리미엄" class="image-block">
+
+            <!-- 입지환경 -->
+            <div class="section-title">
+                <span>입지환경</span>
+            </div>
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/8eda86b62286afdbb44d50ebbea80cd1f4503b4b?placeholderIfAbsent=true" alt="입지환경" class="image-block">
+
+            <!-- 단지안내 -->
+            <div class="section-title">
+                <span>단지안내</span>
+            </div>
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1146d66f6fa0676dd613b67100f244445130b040?placeholderIfAbsent=true" alt="단지안내" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/347840135578fc73984ed531384deec43fe3dddb?placeholderIfAbsent=true" alt="단지정보" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac8cdd84967e8d379feaa76db81b520df5886bd1?placeholderIfAbsent=true" alt="단지시설" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fec7d201e15d74981a224250e52a93853%2F94ecc25d45654a65bcb26a8e91028fe3" alt="XI 브랜딩" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c7631350ca977664e86cc40b29db84a966907eea?placeholderIfAbsent=true" alt="단지 추가정보" class="image-block">
+
+            <!-- CLUB CLOUD -->
+            <div class="section-title">
+                <span>CLUB CLOUD</span>
+            </div>
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/5914f21d76685dc8ad1344d6dd9554b1f1ecdeb7?placeholderIfAbsent=true" alt="클럽 클라우드" class="image-block">
+
+            <!-- SYSTEM -->
+            <div class="section-title">
+                <span>SYSTEM</span>
+            </div>
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/456590c99fd1714832764e2f43f3392db3dfcc14?placeholderIfAbsent=true" alt="시스템" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/df5270b43969c1ef5f930ae3fbb8bdbc3576706b?placeholderIfAbsent=true" alt="시스템 정보" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/717e561080c924cc2b6aaf8dacd62646a5f31aa2?placeholderIfAbsent=true" alt="추가 시스템" class="image-block">
+
+            <!-- 세대안내 -->
+            <div class="section-title">
+                <span>세대안내</span>
+            </div>
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/67c668cf02f1f8e4cd0907a0717d3b3309a9a1b2?placeholderIfAbsent=true" alt="세대안내" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3771f98ecdbbd3c270941f0ddab2b5bfedab78cd?placeholderIfAbsent=true" alt="세대정보" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cde8840441fb049d22af51e351c555f89ef08ae?placeholderIfAbsent=true" alt="평면도" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/36b7a4384a48afb651c51ea85843cb88f098e2fa?placeholderIfAbsent=true" alt="추가 세대정보" class="image-block">
+
+            <img src="https://cdn.builder.io/api/v1/image/assets%2Fec7d201e15d74981a224250e52a93853%2F94ecc25d45654a65bcb26a8e91028fe3" alt="마감 브랜딩" class="image-block">
+
+            <!-- 푸터 정보 -->
+            <div class="footer-info">
+                <div class="footer-text">
+                    <p><br></p>
+                </div>
+                <div class="footer-text">
+                    <p><br></p>
+                </div>
+                <div class="footer-text">
+                    <p><br></p>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- 히어로 섹션 -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content animate-on-scroll">
-                <h1>원주자이센트로</h1>
-                <p>프리미엄 아파트 분양중<br>새로운 라이프스타일을 제안합니다</p>
-                <div class="contact-box">
-                    <p>분양문의</p>
-                    <div class="phone-number">📞 1566-7071</div>
-                </div>
-                <button class="btn" onclick="openContactModal()">모델하우스 방문예약</button>
-            </div>
-        </div>
-
-        <!-- 분양정보 카드 -->
-        <div class="info-card animate-on-scroll">
-            <h3>분양정보</h3>
-            <div class="info-item">
-                <span>세대수:</span>
-                <span><strong>총 1,092세대</strong></span>
-            </div>
-            <div class="info-item">
-                <span>분양면적:</span>
-                <span><strong>75㎡~124㎡</strong></span>
-            </div>
-            <div class="info-item">
-                <span>입주:</span>
-                <span><strong>2026년 4월</strong></span>
-            </div>
-            <button class="btn" style="width: 100%; margin-top: 15px;" onclick="openContactModal()">상세정보 보기</button>
-        </div>
-    </section>
-
-    <!-- 분양상담 섹션 -->
-    <section id="contact" class="section bg-gray contact-section animate-on-scroll">
-        <div class="container">
-            <h2 class="section-title">원주자이센트로 분양상담</h2>
-            <div class="contact-phone">
-                📞 1566-7071
-            </div>
-            <p style="color: #666; margin-bottom: 40px;">
-                상담시간: 평일 09:00 ~ 18:00 | 주말 및 공휴일 10:00 ~ 17:00
-            </p>
-            <div class="contact-cards">
-                <div class="contact-card">
-                    <div style="text-align: center; margin-bottom: 15px;">🏢</div>
-                    <h3>모델하우스</h3>
-                    <p style="margin-bottom: 20px;">원주시 단구동 위치<br>실제 단지 체험 가능</p>
-                    <button class="btn" onclick="openContactModal()">방문 예약</button>
-                </div>
-                <div class="contact-card">
-                    <div style="text-align: center; margin-bottom: 15px;">👥</div>
-                    <h3>전문상담</h3>
-                    <p style="margin-bottom: 20px;">1:1 맞춤 상담<br>분양 전문가 상주</p>
-                    <button class="btn" onclick="openContactModal()">상담 신청</button>
-                </div>
-                <div class="contact-card">
-                    <div style="text-align: center; margin-bottom: 15px;">📞</div>
-                    <h3>전화상담</h3>
-                    <p style="margin-bottom: 20px;">언제든지 문의<br>신속한 답변 제공</p>
-                    <button class="btn" onclick="window.open('tel:1566-7071')">1566-7071</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 입지환경 섹션 -->
-    <section id="location" class="section animate-on-scroll">
-        <div class="container">
-            <h2 class="section-title">입지환경</h2>
-            <div class="location-grid">
-                <div>
-                    <h3 style="font-size: 1.8rem; font-weight: bold; margin-bottom: 30px;">원주 중심가의 프리미엄 입지</h3>
-                    <div class="location-features">
-                        <div class="location-item">
-                            <div>📍</div>
-                            <div>
-                                <h4>교통 접근성</h4>
-                                <p style="color: #666; font-size: 14px;">원주IC 5분, KTX 원주역 10분 거리<br>서울까지 1시간 30분 접근</p>
-                            </div>
-                        </div>
-                        <div class="location-item">
-                            <div>🎓</div>
-                            <div>
-                                <h4>교육환경</h4>
-                                <p style="color: #666; font-size: 14px;">원주초, 원주중, 원주고 도보권<br>연세대학교 원주캠퍼스 근접</p>
-                            </div>
-                        </div>
-                        <div class="location-item">
-                            <div>💼</div>
-                            <div>
-                                <h4>생활편의</h4>
-                                <p style="color: #666; font-size: 14px;">롯데마트, 이마트 5분 거리<br>원주시청, 종합병원 인접</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="map-container">
-                    <img src="https://ext.same-assets.com/2475788019/860211003.png" alt="원주자이센트로 위치도">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 사업개요 섹션 -->
-    <section id="overview" class="section bg-gray animate-on-scroll">
-        <div class="container">
-            <h2 class="section-title">원주자이센트로 특징</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-header blue">🏠</div>
-                    <div class="feature-content">
-                        <h3>BRAND</h3>
-                        <p style="color: #666; font-size: 14px;">GS건설의 프리미엄 브랜드<br>자이(Xi) 아파트의 품격</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-header green">🏢</div>
-                    <div class="feature-content">
-                        <h3>SYSTEM</h3>
-                        <p style="color: #666; font-size: 14px;">첨단 홈네트워크 시스템<br>스마트한 주거환경 구현</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-header purple">🎓</div>
-                    <div class="feature-content">
-                        <h3>EDUCATION</h3>
-                        <p style="color: #666; font-size: 14px;">우수한 교육환경<br>명문학교 도보 접근</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-header orange">🚗</div>
-                    <div class="feature-content">
-                        <h3>TRAFFIC</h3>
-                        <p style="color: #666; font-size: 14px;">편리한 교통망<br>서울 1시간대 접근</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 단지개요 섹션 -->
-    <section id="development" class="section animate-on-scroll">
-        <div class="container">
-            <h2 class="section-title">단지개요</h2>
-            <div class="development-grid">
-                <div>
-                    <img src="https://ext.same-assets.com/2475788019/504105187.jpeg" alt="원주자이센트로 조감도" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-                </div>
-                <div>
-                    <h3 style="font-size: 1.8rem; font-weight: bold; margin-bottom: 30px;">원주 랜드마크가 될 프리미엄 단지</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <h4>총 세대수</h4>
-                            <div class="stat-value">1,092세대</div>
-                        </div>
-                        <div class="stat-item">
-                            <h4>분양면적</h4>
-                            <div class="stat-value">75㎡~124㎡</div>
-                        </div>
-                        <div class="stat-item">
-                            <h4>층수</h4>
-                            <div class="stat-value">지하 2층~지상 29층</div>
-                        </div>
-                        <div class="stat-item">
-                            <h4>입주예정</h4>
-                            <div class="stat-value">2026년 4월</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="facilities-grid">
-                <div class="facility-item">
-                    <img src="https://ext.same-assets.com/2475788019/2405138512.jpeg" alt="커뮤니티시설">
-                    <h4>커뮤니티시설</h4>
-                    <p style="color: #666; font-size: 14px;">피트니스, 독서실, 카페 등</p>
-                </div>
-                <div class="facility-item">
-                    <img src="https://ext.same-assets.com/2475788019/1706684457.jpeg" alt="조경시설">
-                    <h4>조경시설</h4>
-                    <p style="color: #666; font-size: 14px;">중앙광장, 산책로, 어린이놀이터</p>
-                </div>
-                <div class="facility-item">
-                    <img src="https://ext.same-assets.com/2475788019/2610202154.png" alt="부대시설">
-                    <h4>부대시설</h4>
-                    <p style="color: #666; font-size: 14px;">상가, 어린이집, 주민공동시설</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 푸터 -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <img src="https://ext.same-assets.com/2475788019/946734683.png" alt="원주자이센트로" style="height: 24px; filter: brightness(0) invert(1); margin-bottom: 15px;">
-                    <p style="color: #9ca3af; font-size: 14px;">원주시 단구동 위치<br>프리미엄 아파트 분양</p>
-                </div>
-                <div class="footer-section">
-                    <h4>분양정보</h4>
-                    <ul>
-                        <li><button onclick="scrollToSection('overview')">사업개요</button></li>
-                        <li><button onclick="scrollToSection('location')">입지환경</button></li>
-                        <li><button onclick="scrollToSection('development')">단지정보</button></li>
-                        <li><button onclick="scrollToSection('contact')">분양상담</button></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>고객센터</h4>
-                    <p style="color: #9ca3af; font-size: 14px;">
-                        분양문의: <span class="phone-highlight">1566-7071</span><br>
-                        평일 09:00~18:00<br>
-                        주말/공휴일 10:00~17:00
-                    </p>
-                </div>
-                <div class="footer-section">
-                    <h4>약관 및 정책</h4>
-                    <ul>
-                        <li><button>개인정보처리방침</button></li>
-                        <li><button>이용약관</button></li>
-                        <li><button>이메일무단수집거부</button></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>Copyright © 2024 원주자이센트로. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- 자바스크립트 -->
     <script>
-        // 부드러운 스크롤 함수
-        function scrollToSection(sectionId) {
-            const element = document.getElementById(sectionId);
-            if (element) {
-                element.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
-
-        // 간단한 연락처 모달 (알럿으로 대체)
-        function openContactModal() {
-            alert('상담 신청을 원하시면 1566-7071로 연락주세요.\n\n상담시간: 평일 09:00~18:00 | 주말/공휴일 10:00~17:00');
-        }
-
-        // 스크롤 애니메이션
-        function observeElements() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fade-in-up');
+        // 전화 버튼 키보드 접근성
+        document.addEventListener('DOMContentLoaded', function() {
+            const callButton = document.querySelector('.call-button');
+            if (callButton) {
+                callButton.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        window.location.href = 'tel:1-877-5367';
                     }
                 });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            });
-
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                observer.observe(el);
-            });
-        }
-
-        // 페이지 로드 시 애니메이션 초기화
-        document.addEventListener('DOMContentLoaded', observeElements);
+            }
+        });
     </script>
 </body>
 </html>
