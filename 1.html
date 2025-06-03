@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>원주 XI 센트로 - 원주 최초의 자이</title>
+   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+   
+   <!-- 카카오 픽셀 기본 설치 -->
+   <script type="text/javascript" charset="UTF-8" src="//t1.daumcdn.net/kas/static/kp.js"></script>
+   <script type="text/javascript">
+       kakaoPixel('4353333243270745408').pageView();
+   </script>
+   
+   <style>
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+       }
+
+       body {
+           font-family: 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif;
+           line-height: 1.6;
+           color: #3d3d3d;
+       }
+
+       .container {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           gap: 12px;
+           padding: 15px 0;
+           width: 100%;
+       }
+
+       .content-wrapper {
+           width: 100%;
+           max-width: 1200px;
+           position: relative;
+       }
+
+       .section-title {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           padding: 60px 0;
+           font-family: 'Noto Sans KR', -apple-system, Roboto, Helvetica, sans-serif;
+           font-weight: 400;
+           font-size: 60px;
+           color: rgba(61,61,61,1);
+           line-height: 120px;
+       }
+
+       .image-block {
+           width: 100%;
+           height: auto;
+           display: block;
+       }
+
+       .logo-section {
+           display: flex;
+           flex-direction: column;
+           align-items: flex-start;
+           padding-bottom: 3px;
+       }
+
+       .logo-image {
+           width: 227px;
+           height: 120px;
+       }
+
+       .video-container {
+           padding: 60px 0;
+           width: 100%;
+           max-width: 1000px;
+           margin: 0 auto;
+       }
+
+       .video-wrapper {
+           position: relative;
+           padding-bottom: 56.25%;
+           height: 0;
+           overflow: hidden;
+           border-radius: 12px;
+           box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+       }
+
+       .video-wrapper iframe {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           border: none;
+       }
+
+       /* 플로팅 전화 버튼 */
+       .floating-call-button {
+           display: none;
+           position: fixed;
+           bottom: 20px;
+           right: 20px;
+           z-index: 999;
+       }
+
+       .call-button {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           background-color: #007AFF;
+           color: white;
+           width: 60px;
+           height: 60px;
+           border-radius: 50%;
+           box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+           transition: all 0.2s ease;
+           cursor: pointer;
+           text-decoration: none;
+       }
+
+       .call-button:hover {
+           transform: scale(1.05);
+           background-color: #0056b3;
+           box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+       }
+
+       .call-button:active {
+           transform: scale(0.95);
+           background-color: #004494;
+       }
+
+       .call-button:focus {
+           outline: none;
+           box-shadow: 0 0 0 3px rgba(0,122,255,0.5), 0 4px 10px rgba(0,0,0,0.3);
+       }
+
+       .footer-info {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           gap: 12px;
+           padding: 36px 0;
+       }
+
+       .footer-text {
+           display: flex;
+           justify-content: center;
+           font-family: 'NanumGothic', -apple-system, Roboto, Helvetica, sans-serif;
+           font-weight: 400;
+           font-size: 13px;
+           color: rgba(61,61,61,1);
+           line-height: 20px;
+       }
+
+       /* 상담 신청 CTA 버튼 스타일 */
+       .cta-section {
+           background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+           padding: 60px 20px;
+           margin: 40px 0;
+           border-radius: 16px;
+           text-align: center;
+           color: white;
+           box-shadow: 0 8px 32px rgba(30, 60, 114, 0.3);
+       }
+
+       .cta-title {
+           font-size: 32px;
+           font-weight: 700;
+           margin-bottom: 16px;
+           text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+       }
+
+       .cta-subtitle {
+           font-size: 18px;
+           margin-bottom: 32px;
+           opacity: 0.9;
+       }
+
+       .cta-buttons {
+           display: flex;
+           gap: 20px;
+           justify-content: center;
+           flex-wrap: wrap;
+       }
+
+       .cta-button {
+           display: inline-flex;
+           align-items: center;
+           gap: 8px;
+           background: rgba(255,255,255,0.15);
+           border: 2px solid rgba(255,255,255,0.3);
+           color: white;
+           padding: 16px 32px;
+           border-radius: 50px;
+           text-decoration: none;
+           font-weight: 600;
+           font-size: 16px;
+           transition: all 0.3s ease;
+           backdrop-filter: blur(10px);
+       }
+
+       .cta-button:hover {
+           background: rgba(255,255,255,0.25);
+           border-color: rgba(255,255,255,0.5);
+           transform: translateY(-2px);
+           box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+       }
+
+       .floating-consultation {
+           position: fixed;
+           bottom: 100px;
+           right: 20px;
+           z-index: 998;
+           display: none;
+       }
+
+       .consult-button {
+           background: #25D366;
+           color: white;
+           padding: 12px 20px;
+           border-radius: 25px;
+           text-decoration: none;
+           font-weight: 600;
+           box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+           transition: all 0.3s ease;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+       }
+
+       .consult-button:hover {
+           transform: translateY(-2px);
+           box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+       }
+
+       /* 반응형 디자인 */
+       @media (max-width: 768px) {
+           .floating-call-button {
+               display: block;
+           }
+
+           .floating-consultation {
+               display: block;
+           }
+
+           .section-title {
+               padding: 40px 0;
+               font-size: 48px;
+               line-height: 96px;
+           }
+
+           .logo-image {
+               width: 180px;
+               height: 95px;
+           }
+
+           .video-container {
+               padding: 40px 0;
+           }
+
+           .footer-info {
+               padding: 24px 0;
+           }
+
+           .cta-title {
+               font-size: 26px;
+           }
+
+           .cta-subtitle {
+               font-size: 16px;
+           }
+
+           .cta-buttons {
+               flex-direction: column;
+               align-items: center;
+           }
+
+           .cta-button {
+               width: 280px;
+               justify-content: center;
+           }
+       }
+
+       @media (max-width: 480px) {
+           .section-title {
+               padding: 30px 0;
+               font-size: 36px;
+               line-height: 72px;
+           }
+
+           .logo-image {
+               width: 150px;
+               height: 80px;
+           }
+
+           .video-container {
+               padding: 30px 0;
+           }
+
+           .footer-info {
+               padding: 16px 0;
+           }
+
+           .footer-text {
+               font-size: 12px;
+           }
+
+           .cta-section {
+               padding: 40px 16px;
+               margin: 20px 0;
+           }
+
+           .cta-title {
+               font-size: 22px;
+           }
+
+           .cta-subtitle {
+               font-size: 14px;
+           }
+       }
+   </style>
+</head>
+<body>
+   <div class="container">
+       <!-- 플로팅 전화 버튼 -->
+       <div class="floating-call-button">
+           <a href="tel:1-877-5367" class="call-button" role="button" aria-label="전화 상담 1-877-5367" tabindex="0" onclick="trackPhoneCall()">
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+               </svg>
+           </a>
+       </div>
+
+       <!-- 플로팅 상담 신청 버튼 -->
+       <div class="floating-consultation">
+           <a href="javascript:void(0)" class="consult-button" onclick="openConsultation()">
+               💬 무료 상담신청
+           </a>
+       </div>
+
+       <div class="content-wrapper">
+           <!-- 로고 섹션 -->
+           <div class="logo-section">
+               <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7bfaf2e95ed63930bc69731570827437ebaa4469?placeholderIfAbsent=true" alt="XI 로고" class="logo-image">
+           </div>
+
+           <!-- 메인 이미지들 -->
+           <img src="https://cdn.builder.io/api/v1/image/assets%2Fec7d201e15d74981a224250e52a93853%2Fb6cd2680ac464b05aa9e04e39363d464" alt="원주 XI 센트로 메인" class="image-block">
+           
+           <img src="https://cdn.builder.io/api/v1/image/assets%2Fec7d201e15d74981a224250e52a93853%2F94ecc25d45654a65bcb26a8e91028fe3" alt="원주 XI 센트로" class="image-block">
+
+           <!-- 상담 신청 CTA 섹션 -->
+           <div class="cta-section">
+               <h2 class="cta-title">🏆 원주 최초 XI 센트로</h2>
+               <p class="cta-subtitle">지금 상담 신청하고 특별 혜택을 받아보세요!</p>
+               <div class="cta-buttons">
+                   <a href="tel:1-877-5367" class="cta-button" onclick="trackPhoneCall()">
+                       📞 전화 상담
+                   </a>
+                   <a href="javascript:void(0)" class="cta-button" onclick="openConsultation()">
+                       💬 온라인 상담
+                   </a>
+                   <a href="javascript:void(0)" class="cta-button" onclick="requestModelHouse()">
+                       🏢 견본주택 예약
+                   </a>
+               </div>
+           </div>
+
+           <!-- 사업 개요 -->
+           <div class="section-title">
+               <span>사업 개요</span>
+           </div>
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6210605eb4d62c44c4a00df7e49c2c8cf38fad9d?placeholderIfAbsent=true" alt="사업 개요" class="image-block" onclick="trackContentView('business_overview')">
+
+           <!-- YouTube 영상 -->
+           <div class="video-container">
+               <div class="video-wrapper">
+                   <iframe src="https://www.youtube.com/embed/dG7zQYO2luU?autoplay=1&mute=1" title="원주 XI 센트로 홍보영상" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen onload="trackVideoView()"></iframe>
+               </div>
+           </div>
+
+           <!-- 프리미엄 -->
+           <div class="section-title">
+               <span>프리미엄</span>
+           </div>
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/08ed799187c3031dd8d2fbe332ac746ab91245f2?placeholderIfAbsent=true" alt="프리미엄" class="image-block" onclick="trackContentView('premium')">
+
+           <!-- 입지환경 -->
+           <div class="section-title">
+               <span>입지환경</span>
+           </div>
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/8eda86b62286afdbb44d50ebbea80cd1f4503b4b?placeholderIfAbsent=true" alt="입지환경" class="image-block" onclick="trackContentView('location')">
+
+           <!-- 단지안내 -->
+           <div class="section-title">
+               <span>단지안내</span>
+           </div>
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1146d66f6fa0676dd613b67100f244445130b040?placeholderIfAbsent=true" alt="단지안내" class="image-block" onclick="trackContentView('complex_info')">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/347840135578fc73984ed531384deec43fe3dddb?placeholderIfAbsent=true" alt="단지정보" class="image-block" onclick="trackContentView('complex_detail')">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac8cdd84967e8d379feaa76db81b520df5886bd1?placeholderIfAbsent=true" alt="단지시설" class="image-block" onclick="trackContentView('complex_facilities')">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets%2Fec7d201e15d74981a224250e52a93853%2F94ecc25d45654a65bcb26a8e91028fe3" alt="XI 브랜딩" class="image-block">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c7631350ca977664e86cc40b29db84a966907eea?placeholderIfAbsent=true" alt="단지 추가정보" class="image-block" onclick="trackContentView('complex_additional')">
+
+           <!-- CLUB CLOUD -->
+           <div class="section-title">
+               <span>CLUB CLOUD</span>
+           </div>
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/5914f21d76685dc8ad1344d6dd9554b1f1ecdeb7?placeholderIfAbsent=true" alt="클럽 클라우드" class="image-block" onclick="trackContentView('club_cloud')">
+
+           <!-- SYSTEM -->
+           <div class="section-title">
+               <span>SYSTEM</span>
+           </div>
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/456590c99fd1714832764e2f43f3392db3dfcc14?placeholderIfAbsent=true" alt="시스템" class="image-block" onclick="trackContentView('system')">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/df5270b43969c1ef5f930ae3fbb8bdbc3576706b?placeholderIfAbsent=true" alt="시스템 정보" class="image-block" onclick="trackContentView('system_info')">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/717e561080c924cc2b6aaf8dacd62646a5f31aa2?placeholderIfAbsent=true" alt="추가 시스템" class="image-block" onclick="trackContentView('system_additional')">
+
+           <!-- 세대안내 -->
+           <div class="section-title">
+               <span>세대안내</span>
+           </div>
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/67c668cf02f1f8e4cd0907a0717d3b3309a9a1b2?placeholderIfAbsent=true" alt="세대안내" class="image-block" onclick="trackContentView('unit_info')">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3771f98ecdbbd3c270941f0ddab2b5bfedab78cd?placeholderIfAbsent=true" alt="세대정보" class="image-block" onclick="trackContentView('unit_detail')">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2cde8840441fb049d22af51e351c555f89ef08ae?placeholderIfAbsent=true" alt="평면도" class="image-block" onclick="trackContentView('floor_plan')">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/36b7a4384a48afb651c51ea85843cb88f098e2fa?placeholderIfAbsent=true" alt="추가 세대정보" class="image-block" onclick="trackContentView('unit_additional')">
+
+           <img src="https://cdn.builder.io/api/v1/image/assets%2Fec7d201e15d74981a224250e52a93853%2F94ecc25d45654a65bcb26a8e91028fe3" alt="마감 브랜딩" class="image-block">
+
+           <!-- 마지막 CTA 섹션 -->
+           <div class="cta-section">
+               <h2 class="cta-title">🌟 놓치면 후회할 기회!</h2>
+               <p class="cta-subtitle">원주 최초 XI 센트로, 지금 바로 상담 받아보세요</p>
+               <div class="cta-buttons">
+                   <a href="tel:1-877-5367" class="cta-button" onclick="trackPhoneCall()">
+                       📞 1-877-5367
+                   </a>
+                   <a href="javascript:void(0)" class="cta-button" onclick="requestModelHouse()">
+                       🏢 견본주택 방문예약
+                   </a>
+               </div>
+           </div>
+
+           <!-- 푸터 정보 -->
+           <div class="footer-info">
+               <div class="footer-text">
+                   <p>원주 XI 센트로 분양 문의: 1-877-5367</p>
+               </div>
+               <div class="footer-text">
+                   <p>⚠️ 본 홍보물은 소비자의 이해를 돕기 위한 것으로 실제와 차이가 있을 수 있습니다.</p>
+               </div>
+               <div class="footer-text">
+                   <p>※ 자세한 사항은 견본주택에서 확인하시기 바랍니다.</p>
+               </div>
+           </div>
+       </div>
+   </div>
+
+   <script>
+       const TRACK_ID = '4353333243270745408';
+
+       // 페이지 로드 시 기본 이벤트 트래킹
+       document.addEventListener('DOMContentLoaded', function() {
+           // 페이지 뷰는 이미 head에서 실행됨
+           
+           // 전화 버튼 키보드 접근성
+           const callButton = document.querySelector('.call-button');
+           if (callButton) {
+               callButton.addEventListener('keydown', function(event) {
+                   if (event.key === 'Enter' || event.key === ' ') {
+                       event.preventDefault();
+                       trackPhoneCall();
+                       window.location.href = 'tel:1-877-5367';
+                   }
+               });
+           }
+
+           // 스크롤 이벤트로 관심도 측정
+           let scrollPercent = 0;
+           let hasTracked25 = false, hasTracked50 = false, hasTracked75 = false;
+
+           window.addEventListener('scroll', function() {
+               const scrollTop = window.pageYOffset;
+               const docHeight = document.body.offsetHeight - window.innerHeight;
+               scrollPercent = Math.round((scrollTop / docHeight) * 100);
+
+               // 스크롤 깊이별 이벤트 트래킹
+               if (scrollPercent >= 25 && !hasTracked25) {
+                   kakaoPixel(TRACK_ID).participation();
+                   hasTracked25 = true;
+               }
+               if (scrollPercent >= 50 && !hasTracked50) {
+                   kakaoPixel(TRACK_ID).participation();
+                   hasTracked50 = true;
+               }
+               if (scrollPercent >= 75 && !hasTracked75) {
+                   kakaoPixel(TRACK_ID).participation();
+                   hasTracked75 = true;
+               }
+           });
+
+           // 3분 이상 체류 시 고관심 고객으로 분류
+           setTimeout(function() {
+               kakaoPixel(TRACK_ID).participation();
+           }, 180000); // 3분
+       });
+
+       // 전화 상담 클릭 트래킹
+       function trackPhoneCall() {
+           kakaoPixel(TRACK_ID).signUp();
+           console.log('전화 상담 클릭 이벤트 발생');
+       }
+
+       // 온라인 상담 신청
+       function openConsultation() {
+           kakaoPixel(TRACK_ID).signUp();
+           
+           // 실제 구현 시에는 상담 신청 팝업이나 폼을 여는 코드로 교체
+           alert('온라인 상담 신청이 완료되었습니다!\n담당자가 빠른 시일 내에 연락드리겠습니다.\n\n📞 급하신 경우: 1-877-5367');
+           
+           console.log('온라인 상담 신청 이벤트 발생');
+       }
+
+       // 견본주택 예약
+       function requestModelHouse() {
+           kakaoPixel(TRACK_ID).signUp();
+           
+           // 실제 구현 시에는 견본주택 예약 시스템으로 교체
+           alert('견본주택 방문 예약 신청이 완료되었습니다!\n담당자가 방문 일정을 조율하여 연락드리겠습니다.\n\n📞 문의: 1-877-5367');
+           
+           console.log('견본주택 예약 이벤트 발생');
+       }
+
+       // 콘텐츠 조회 트래킹
+       function trackContentView(contentType) {
+           kakaoPixel(TRACK_ID).viewContent({
+               id: 'wonju_xi_centro_' + contentType
+           });
+           console.log('콘텐츠 조회 이벤트 발생: ' + contentType);
+       }
+
+       // 영상 조회 트래킹
+       function trackVideoView() {
+           kakaoPixel(TRACK_ID).viewContent({
+               id: 'wonju_xi_centro_video'
+           });
+           console.log('영상 조회 이벤트 발생');
+       }
+
+       // 세대안내 이미지 클릭 시 장바구니 추가 이벤트 (관심 표현)
+       document.addEventListener('DOMContentLoaded', function() {
+           const unitImages = document.querySelectorAll('img[alt*="세대"], img[alt*="평면도"]');
+           unitImages.forEach(function(img) {
+               img.addEventListener('click', function() {
+                   kakaoPixel(TRACK_ID).addToWishList({
+                       id: 'wonju_xi_centro_unit_interest'
+                   });
+                   console.log('세대정보 관심 표현 이벤트 발생');
+               });
+           });
+
+           // CLUB CLOUD 클릭 시 특별 관심 표현
+           const clubCloudImages = document.querySelectorAll('img[alt*="클럽 클라우드"]');
+           clubCloudImages.forEach(function(img) {
+               img.addEventListener('click', function() {
+                   kakaoPixel(TRACK_ID).addToWishList({
+                       id: 'wonju_xi_centro_premium_interest'
+                   });
+                   console.log('프리미엄 시설 관심 표현 이벤트 발생');
+               });
+           });
+       });
+
+       // 페이지 이탈 방지 및 관심 고객 재타겟팅을 위한 이벤트
+       window.addEventListener('beforeunload', function(e) {
+           // 30초 이상 체류한 사용자만 관심 고객으로 분류
+           if (performance.now() > 30000) {
+               kakaoPixel(TRACK_ID).participation();
+           }
+       });
+   </script>
+</body>
+</html>
