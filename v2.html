@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>여주역 로제비앙 더센텀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .popup-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 85vh;
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .popup-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 35px;
+            height: 35px;
+            background: rgba(0, 0, 0, 0.8);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.3s ease;
+        }
+
+        .popup-close:hover {
+            background: #FF1744;
+            transform: scale(1.1);
+        }
+
+        .call-button {
+            position: fixed;
+            bottom: 80px;
+            right: 15px;
+            width: 416px;
+            height: 416px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 99;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .call-button:hover {
+            transform: scale(1.05);
+        }
+
+        .call-button::before {
+            content: '';
+            width: 416px;
+            height: 416px;
+            background: url('https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/27.png') center/cover;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100vh;
+            display: none;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 3rem 1rem 4rem;
+            padding-top: 4rem;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide.title-slide {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+        }
+
+        .slide.title-slide.active {
+            display: flex;
+        }
+
+        .slide-content {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .main-title {
+            font-size: clamp(1.5rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+        }
+
+        .sub-title {
+            font-size: clamp(0.9rem, 1.8vw, 1.4rem);
+            color: #4AC7CB;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .highlight-text {
+            color: #FF1744;
+            font-weight: 800;
+        }
+
+        .urgent-text {
+            color: #FFD700;
+            font-weight: 800;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .deadline-box {
+            background: linear-gradient(135deg, #FF1744, #FF5722);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            animation: urgentPulse 1.5s infinite;
+        }
+
+        @keyframes urgentPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .image-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 1.5rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            backdrop-filter: blur(5px);
+        }
+
+        .special-box {
+            background: linear-gradient(135deg, rgba(255, 23, 68, 0.15), rgba(255, 215, 0, 0.08));
+            border: 2px solid #FF1744;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin: 1.2rem 0;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-value {
+            font-size: clamp(1.1rem, 2vw, 1.6rem);
+            font-weight: 800;
+            color: #FFD700;
+            margin-bottom: 0.2rem;
+        }
+
+        .info-label {
+            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
+            color: #4AC7CB;
+        }
+
+        .floor-plan-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 1.5rem;
+            align-items: start;
+            margin-top: 1rem;
+        }
+
+        .floor-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+        }
+
+        .type-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-weight: 800;
+            font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+            margin-bottom: 1rem;
+        }
+
+        .area-info {
+            background: rgba(74, 199, 203, 0.1);
+            border-left: 3px solid #4AC7CB;
+            padding: 0.8rem;
+            margin: 0.8rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 90;
+        }
+
+        .nav-left {
+            left: 20px;
+        }
+
+        .nav-right {
+            right: 20px;
+        }
+
+        .nav-btn {
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            background: rgba(255, 215, 0, 0.15);
+            color: rgba(255, 215, 0, 0.8);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 215, 0, 0.3);
+            color: #FFD700;
+            transform: scale(1.05);
+        }
+
+        .slide-indicator {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.3rem;
+            z-index: 95;
+        }
+
+        .indicator-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .indicator-dot.active {
+            width: 25px;
+            border-radius: 15px;
+            background: #FFD700;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 1.5rem 0.8rem 3.5rem;
+            }
+
+            .floor-plan-layout {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .special-box, .info-box {
+                padding: 1rem;
+                margin: 0.8rem 0;
+            }
+
+            .call-button {
+                width: 45px;
+                height: 45px;
+                bottom: 70px;
+                right: 12px;
+            }
+
+            .call-button::before {
+                width: 18px;
+                height: 18px;
+            }
+
+            .popup-content {
+                max-width: 95vw;
+                max-height: 80vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide {
+                padding: 1rem 0.5rem 3rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+        }
+
+        .slide::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="popup-overlay" id="popup">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup()">&times;</button>
+            <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-11%2010%2051%2021.png" alt="특별 혜택" class="popup-image">
+        </div>
+    </div>
+
+    <a href="tel:010-4473-5233" class="call-button"></a>
+
+    <div class="presentation-container">
+        <div class="slide active title-slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h1 class="main-title">여주역 로제비앙 더센텀</h1>
+                    <p class="sub-title">34평 가격으로 49평 거주! 여주 마지막 신규 공급</p>
+                </div>
+                <div class="deadline-box">
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #FFD700; margin-bottom: 0.3rem;">
+                        🚨 8월 31일 마감! 🚨
+                    </div>
+                    <div style="font-size: 1rem; color: #fff;">
+                        중도금 무이자 혜택 종료 임박!<br>
+                        세대 옵션 4,000만원 상당 무상제공
+                    </div>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.6rem; font-weight: 800; color: #FFD700; margin-bottom: 0.8rem;">
+                        계약금 단 2,500만원!
+                    </div>
+                    <div style="font-size: 1.1rem; color: #fff;">
+                        중도금 대출 무이자 혜택<br>
+                        <span class="highlight-text">입주시까지 추가 부담 0원</span>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-value">744세대</div>
+                            <div class="info-label">총 세대수</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">5.1억</div>
+                            <div class="info-label">분양가</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">2028.4월</div>
+                            <div class="info-label">입주예정</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">도보 3분</div>
+                            <div class="info-label">여주역</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box" style="background: rgba(74, 199, 203, 0.1); border-color: #4AC7CB;">
+                    <div style="text-align: center; font-size: 1rem; color: #4AC7CB;">
+                        <strong>비규제지역 혜택</strong><br>
+                        거주의무 없음 | 전매제한 자유 | 6개월 후 전매가능
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">25년 6월 28일 새정부 첫 부동사 대책</h2>
+                    <p class="sub-title">대출규제 완화 최대 수혜 단지</p>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #FFD700; margin-bottom: 0.8rem;">
+                        🎯 여주 유일의 기회! 2030년까지 신규 공급 없음
+                    </div>
+                    <div style="font-size: 1rem; color: #fff;">
+                        상수원 보호구역으로 개발 제한<br>
+                        <span class="urgent-text">여주 마지막 신규 아파트</span>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-value">제한 없음</div>
+                            <div class="info-label">처분 의무</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">제한 없음</div>
+                            <div class="info-label">전입 의무</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">LTV 70%</div>
+                            <div class="info-label">대출 한도</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">6개월</div>
+                            <div class="info-label">전매 가능</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2004%2004.png" alt="25년 6월 28일 새정부의 첫 부동사 대책">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">여주시 입주물량</h2>
+                    <p class="sub-title">여주역 자이 & 여주역 로제비앙 외 입주물량 無</p>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #FFD700;">
+                        상수원보호구역 개발제한으로<br>
+                        <span style="color: #FF1744; font-size: 1.4rem;">2030년까지 신규 공급 전무</span>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div style="color: #4AC7CB; font-size: 1rem; line-height: 1.6;">
+                        ✓ 2027년: 여주역자이 769세대<br>
+                        ✓ 2028년: 여주역 로제비앙 744세대<br>
+                        ✓ 2029년~2030년: 신규 공급 없음<br>
+                        ✓ 희소성으로 인한 가치 상승 기대
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2003%2031.png" alt="여주시 입주물량">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">4,000만원 상당 무상 옵션</h2>
+                    <p class="sub-title">여주에 다시없을 최고급 마감재와 5성급 호텔 수준 인테리어</p>
+                </div>
+                <div class="deadline-box">
+                    <div style="font-size: 1.2rem; font-weight: 800; color: #FFD700;">
+                        선착순 한정! 8월 31일 마감
+                    </div>
+                    <div style="color: #fff; margin-top: 0.3rem;">
+                        기존 5,000만원 → 1,000만원 특가
+                    </div>
+                </div>
+                <div class="special-box">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem;">
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 0.8rem; border-radius: 8px;">
+                            <div style="color: #FFD700; font-weight: 700;">유리난간</div>
+                            <div style="color: #fff; font-size: 0.85rem;">개방감 극대화</div>
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 0.8rem; border-radius: 8px;">
+                            <div style="color: #FFD700; font-weight: 700;">아일랜드 식탁</div>
+                            <div style="color: #fff; font-size: 0.85rem;">주방 폭 5m 이상</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div style="color: #4AC7CB; font-size: 1rem; line-height: 1.6;">
+                        ✓ 층고 2.5m 개방감 ✓ 주방 폭 5m 이상 ✓ 고급 마감재 적용
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2003%2009.png" alt="여주에 다시없을 최고급 마감재와 5성급 호텔 수준 인테리어">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">전세대 유리난간 무상제공</h2>
+                    <p class="sub-title">개방감 높은 시야와 고급스러운 외관 제공</p>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.1rem; color: #FFD700;">
+                        <strong>전세대 무상 제공</strong><br>
+                        일반 난간 대비 월등한 조망권과 채광
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div style="color: #4AC7CB; font-size: 1rem; line-height: 1.6;">
+                        ✓ 탁 트인 전망 확보 ✓ 고급스러운 외관 연출<br>
+                        ✓ 남한강 조망 가능 ✓ 채광 극대화
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2002%2056.png" alt="전세대 유리난간 무상제공으로 개방감 높은 시야와 고급스러운 외관 제공">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">84C㎡ 타입</h2>
+                    <p class="sub-title">서비스면적 11.3평 + 실사용 44.21평 = <span class="highlight-text">55.51평</span></p>
+                </div>
+                <div class="floor-plan-layout">
+                    <div class="floor-info">
+                        <span class="type-badge">137세대</span>
+                        <div class="area-info">
+                            <div class="info-value">32.91평형</div>
+                            <div class="info-label">전용면적</div>
+                        </div>
+                        <div class="special-box" style="margin: 0.8rem 0; padding: 0.8rem;">
+                            <div style="color: #FF1744; font-size: 1rem; font-weight: 700;">
+                                동일평형대비 최대 15평 넓은 실내!
+                            </div>
+                        </div>
+                        <div style="color: #4AC7CB; line-height: 1.5; font-size: 0.9rem;">
+                            <p>✓ 세대 내 모든 방 남동/남서 배치</p>
+                            <p>✓ 대형 드레스룸과 팬트리</p>
+                            <p>✓ 주방~거실 완벽 분리</p>
+                            <p>✓ 주방 폭 4.35M</p>
+                            <p>✓ 거실 이면창 개방감 극대화</p>
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2002%2019.png" alt="84C 평면도">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">84A㎡ 타입</h2>
+                    <p class="sub-title">서비스면적 12.51평 + 실사용 45.39평 = <span class="highlight-text">57.9평</span></p>
+                </div>
+                <div class="floor-plan-layout">
+                    <div class="floor-info">
+                        <span class="type-badge">263세대</span>
+                        <div class="area-info">
+                            <div class="info-value">32.89평형</div>
+                            <div class="info-label">전용면적</div>
+                        </div>
+                        <div class="special-box" style="margin: 0.8rem 0; padding: 0.8rem;">
+                            <div style="color: #FF1744; font-size: 1rem; font-weight: 700;">
+                                동일평형대비 최대 15평 넓은 실내!
+                            </div>
+                        </div>
+                        <div style="color: #4AC7CB; line-height: 1.5; font-size: 0.9rem;">
+                            <p>✓ 4BAY·3ROOM 완벽 평면</p>
+                            <p>✓ 식당 대형창 아늑한 휴식</p>
+                            <p>✓ 2.5M 층고 개방감</p>
+                            <p>✓ 주방 폭 5.05M</p>
+                            <p>✓ 아일랜드 식탁 여유로운 주방</p>
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2002%2010.png" alt="84A 평면도">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">84B㎡ 타입</h2>
+                    <p class="sub-title">서비스면적 15.7평 + 실사용 48.81평 = <span class="highlight-text">64.51평</span></p>
+                </div>
+                <div class="floor-plan-layout">
+                    <div class="floor-info">
+                        <span class="type-badge">260세대</span>
+                        <div class="area-info">
+                            <div class="info-value">33.11평형</div>
+                            <div class="info-label">전용면적</div>
+                        </div>
+                        <div class="special-box" style="margin: 0.8rem 0; padding: 0.8rem;">
+                            <div style="color: #FF1744; font-size: 1rem; font-weight: 700;">
+                                동일평형대비 최대 15평 넓은 실내!
+                            </div>
+                        </div>
+                        <div style="color: #4AC7CB; line-height: 1.5; font-size: 0.9rem;">
+                            <p>✓ 침실1 측면 확장</p>
+                            <p>✓ 광폭 드레스룸</p>
+                            <p>✓ 식당 대형창 휴식제공</p>
+                            <p>✓ 주방 폭 5.3M</p>
+                            <p>✓ 동선 최적화</p>
+                        </div>
+                    </div>
+                    <div class="image-container">
+                        <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2001%2058.png" alt="84B 평면도">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">호텔급 커뮤니티</h2>
+                    <p class="sub-title">입주민 전용 프리미엄 시설</p>
+                </div>
+                <div class="info-box">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-value">100평</div>
+                            <div class="info-label">호텔식 사우나</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">80평</div>
+                            <div class="info-label">GDR 골프연습장</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">피트니스</div>
+                            <div class="info-label">최신 운동기구</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">독서실</div>
+                            <div class="info-label">스터디룸</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.1rem; color: #FFD700;">
+                        5성급 호텔 수준의 사우나와 찜질방<br>
+                        <span style="color: #4AC7CB;">24시간 이용 가능</span>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2001%2044.png" alt="호텔식 사우나">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">전타석 GDR골프연습장</h2>
+                    <p class="sub-title">프리미엄 아파트의 특권, 전용면적 약 80평</p>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.1rem; color: #FFD700;">
+                        <strong>전타석 GDR 시스템</strong><br>
+                        정확한 비거리와 궤도 분석
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div style="color: #4AC7CB; font-size: 1rem; line-height: 1.6;">
+                        ✓ 최신 GDR 시스템 도입 ✓ 전타석 스크린골프<br>
+                        ✓ 정확한 비거리 측정 ✓ 실내 연습장 겸용
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2001%2035.png" alt="GDR골프연습장">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">총 744세대</h2>
+                    <p class="sub-title">지하 2층 ~ 지상 25층, 8개동</p>
+                </div>
+                <div class="info-box">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-value">지하 2층</div>
+                            <div class="info-label">~ 지상 25층</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">8개동</div>
+                            <div class="info-label">총 744세대</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">1.4대/세대</div>
+                            <div class="info-label">주차(1,046대)</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-value">81~111m</div>
+                            <div class="info-label">동간거리</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.1rem; color: #FFD700;">
+                        건폐율 29.10% | 용적률 199.66%<br>
+                        <span style="color: #4AC7CB;">넓은 녹지공간 + 쾌적한 주거환경</span>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2014%2001%2015.png" alt="단지 개요">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">6.27 대출규제 미적용</h2>
+                    <p class="sub-title">여주역 로제비앙만의 특별 혜택</p>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #FFD700; margin-bottom: 1rem;">
+                        타 단지 대비 2억원 대출 차이!
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem;">
+                        <div style="background: rgba(74, 199, 203, 0.2); padding: 0.8rem; border-radius: 8px;">
+                            <div style="color: #4AC7CB; font-size: 1rem; font-weight: 700;">로제비앙</div>
+                            <div style="color: #FFD700; font-size: 0.85rem; margin-top: 0.3rem;">
+                                ✓ LTV 70% (3.6억)<br>
+                                ✓ 전입 의무 없음<br>
+                                ✓ 처분 의무 없음<br>
+                                ✓ 비규제지역
+                            </div>
+                        </div>
+                        <div style="background: rgba(255, 23, 68, 0.2); padding: 0.8rem; border-radius: 8px;">
+                            <div style="color: #FF1744; font-size: 1rem; font-weight: 700;">타 단지</div>
+                            <div style="color: #999; font-size: 0.85rem; margin-top: 0.3rem;">
+                                ✗ LTV 0%<br>
+                                ✗ 전입 필수<br>
+                                ✗ 처분 의무<br>
+                                ✗ 가산금리 1.5%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2013%2057%2023.png" alt="6.27 대출규제 미적용">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">압도적 가격 경쟁력</h2>
+                    <p class="sub-title">4,000만원 무상옵션 포함</p>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 2.2rem; font-weight: 800; color: #FFD700;">5억 1,300만원</div>
+                    <div style="font-size: 1.1rem; color: #4AC7CB; margin-top: 0.3rem;">
+                        84㎡ 기준 4.3억~5.3억대
+                    </div>
+                    <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #FFD700;">
+                        <div style="font-size: 1rem; color: #fff;">
+                            <span class="urgent-text">계약금 2,500만원 정액제</span><br>
+                            중도금 대출 무이자 혜택
+                        </div>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2013%2057%2013.png" alt="분양가 비교">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">여주시 주요 단지 매매가+인테리어 비용</h2>
+                    <p class="sub-title">6억 2천 인테리어 비용 7천만원 vs 5억 7천 인테리어 비용 7천만원</p>
+                </div>
+                <div class="special-box">
+                    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <div style="color: #999; font-size: 0.8rem;">여주역 푸르지오</div>
+                            <div style="color: #FFD700; font-size: 1.2rem; font-weight: 700;">5.5억</div>
+                        </div>
+                        <div>
+                            <div style="color: #999; font-size: 0.8rem;">여주역 우미</div>
+                            <div style="color: #FFD700; font-size: 1.2rem; font-weight: 700;">5.5억</div>
+                        </div>
+                        <div>
+                            <div style="color: #999; font-size: 0.8rem;">여주역 유미원</div>
+                            <div style="color: #FFD700; font-size: 1.2rem; font-weight: 700;">5.5억</div>
+                        </div>
+                        <div style="background: rgba(255, 23, 68, 0.2); padding: 0.3rem 0.8rem; border-radius: 8px;">
+                            <div style="color: #4AC7CB; font-size: 0.8rem;">로제비앙</div>
+                            <div style="color: #FF1744; font-size: 1.4rem; font-weight: 800;">5억</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 0.8rem; font-size: 1rem; color: #4AC7CB;">
+                        + 인테리어 비용 7천만원 무상 제공!
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2013%2057%2001.png" alt="여주시 주요단지 매매가+인테리어 비용">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">입주 프리미엄 1억 5천원 이상!</h2>
+                    <p class="sub-title">여주 마지막 신규 공급 희소성</p>
+                </div>
+                <div class="special-box">
+                    <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+                        <div>
+                            <div style="color: #4AC7CB;">현재</div>
+                            <div style="color: #FFD700; font-size: 1.6rem; font-weight: 800;">5.1억</div>
+                        </div>
+                        <div style="font-size: 1.5rem; color: #FFD700;">→</div>
+                        <div>
+                            <div style="color: #4AC7CB;">프리미엄</div>
+                            <div style="color: #FF1744; font-size: 1.6rem; font-weight: 800;">+1.5억</div>
+                        </div>
+                        <div style="font-size: 1.5rem; color: #FFD700;">→</div>
+                        <div style="background: rgba(255, 215, 0, 0.2); padding: 0.8rem; border-radius: 8px;">
+                            <div style="color: #4AC7CB;">입주시</div>
+                            <div style="color: #FFD700; font-size: 1.8rem; font-weight: 800;">6.6억</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2013%2056%2040.png" alt="입주 프리미엄 1억 5천원 이상">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">이천시 비역세권과 1억5천~2억 차이!</h2>
+                    <p class="sub-title">역세권 여주역 로제비앙과 1억 5천 ~ 2억 차이!!</p>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.8rem; font-weight: 800; color: #FF1744;">최대 2.2억 차이!</div>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem;">
+                        <div>
+                            <div style="color: #999; font-size: 0.8rem;">이천 센트레빌</div>
+                            <div style="color: #FFD700; font-size: 1.2rem; font-weight: 700;">7.3억</div>
+                        </div>
+                        <div>
+                            <div style="color: #999; font-size: 0.8rem;">힐스테이트</div>
+                            <div style="color: #FFD700; font-size: 1.2rem; font-weight: 700;">7.1억</div>
+                        </div>
+                        <div>
+                            <div style="color: #999; font-size: 0.8rem;">롯데캐슬</div>
+                            <div style="color: #FFD700; font-size: 1.2rem; font-weight: 700;">7억</div>
+                        </div>
+                        <div style="background: rgba(255, 23, 68, 0.2); padding: 0.3rem 0.8rem; border-radius: 8px;">
+                            <div style="color: #4AC7CB; font-size: 0.8rem;">로제비앙</div>
+                            <div style="color: #FF1744; font-size: 1.4rem; font-weight: 800;">5.1억</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2013%2056%2024.png" alt="이천시 비역세권과 1억5천~2억 차이">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">중도금 전액무이자</h2>
+                    <p class="sub-title">계약금 5% 한시적 운영</p>
+                </div>
+                <div class="deadline-box">
+                    <div style="font-size: 1.6rem; font-weight: 800; color: #FFD700;">8월 31일 마감!</div>
+                    <div style="color: #fff; margin-top: 0.3rem; font-size: 1rem;">
+                        중도금 무이자 혜택 종료 임박
+                    </div>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.8rem; font-weight: 800; color: #4AC7CB;">계약금 2,500만원</div>
+                    <div style="font-size: 1.2rem; color: #FFD700; margin-top: 0.8rem;">중도금 대출 무이자 혜택</div>
+                    <div style="margin-top: 1rem; padding: 0.8rem; background: rgba(255, 255, 255, 0.1); border-radius: 8px;">
+                        <div style="color: #fff; font-size: 1rem;">
+                            💰 입주시까지 추가 부담 0원<br>
+                            💰 자금 운용 자유<br>
+                            💰 6개월 후 전매 가능<br>
+                            💰 비규제지역 혜택
+                        </div>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2013%2056%2012.png" alt="중도금 전액무이자 계약금 5%">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">입주 시 여주초 셔틀버스 운영</h2>
+                    <p class="sub-title">2026년 3월 여주초 이전 (800m)</p>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.2rem; font-weight: 700; color: #FFD700; margin-bottom: 0.8rem;">
+                        🚇 수서역 30분대 (2030년 복선전철)
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.8rem;">
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 0.8rem; border-radius: 8px;">
+                            <div style="color: #4AC7CB; font-weight: 700;">교통</div>
+                            <div style="color: #fff; font-size: 0.85rem; margin-top: 0.3rem;">
+                                • 여주역 도보 3분<br>
+                                • 4차선 신설도로<br>
+                                • 여주-원주 2028년<br>
+                                • GTX-D 계획
+                            </div>
+                        </div>
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 0.8rem; border-radius: 8px;">
+                            <div style="color: #4AC7CB; font-weight: 700;">교육</div>
+                            <div style="color: #fff; font-size: 0.85rem; margin-top: 0.3rem;">
+                                • 여주초 800m (2026.3)<br>
+                                • 세종중·세종고<br>
+                                • 셔틀버스 운행<br>
+                                • 학원가 밀집
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2013%2055%2054.png" alt="입주시 여주초 셔틀버스 운영">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">완벽한 교통·교육 인프라</h2>
+                    <p class="sub-title">여주문화아트홀 등 공공복합개발 진행</p>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.1rem; color: #FFD700;">
+                        <strong>신주거타운 홍문1지구 핵심</strong><br>
+                        도시개발의 중심축 역할
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div style="color: #4AC7CB; font-size: 1rem; line-height: 1.6;">
+                        ✓ 여주문화아트홀 건설 예정 ✓ 공공복합시설 단지 조성<br>
+                        ✓ 생활편의시설 집중 배치 ✓ 직주근접 최적 입지
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img src="https://raw.githubusercontent.com/honggilee22/dg/refs/heads/main/2025-08-10%2013%2055%2033.png" alt="여주초 학교부학시설 위치도">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <h2 class="main-title">최종 혜택 정리</h2>
+                    <p class="sub-title">여주 마지막 기회</p>
+                </div>
+                <div class="deadline-box">
+                    <div style="font-size: 1.4rem; font-weight: 800; color: #FFD700; margin-bottom: 0.3rem;">
+                        🚨 8월 31일 마감! 🚨
+                    </div>
+                    <div style="font-size: 1rem; color: #fff;">
+                        중도금 무이자 + 4,000만원 무상옵션
+                    </div>
+                </div>
+                <div class="special-box">
+                    <div style="font-size: 1.6rem; font-weight: 800; color: #FFD700; margin-bottom: 0.8rem;">
+                        세대옵션 4,000만원 상당<br>
+                        5천만원 → 1천만원
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div style="line-height: 1.8; font-size: 1rem;">
+                        ✅ 분양가: <span class="highlight-text">5억 1,300만원</span><br>
+                        ✅ 계약금: <span class="highlight-text">2,500만원 정액제</span><br>
+                        ✅ 중도금: <span class="highlight-text">대출 무이자 혜택</span><br>
+                        ✅ 전매: <span class="highlight-text">6개월 후 가능</span><br>
+                        ✅ 대출: <span class="highlight-text">LTV 70%</span><br>
+                        ✅ 의무: <span class="highlight-text">거주/처분 의무 없음</span><br>
+                        ✅ 실평수: <span class="highlight-text">동일평형대비 최대 15평 넓음</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navigation nav-left">
+        <button class="nav-btn" onclick="previousSlide()">‹</button>
+    </div>
+    
+    <div class="navigation nav-right">
+        <button class="nav-btn" onclick="nextSlide()">›</button>
+    </div>
+
+    <div class="slide-indicator" id="indicator"></div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        document.getElementById('popup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePopup();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closePopup();
+            }
+        });
+
+        function createIndicators() {
+            const indicatorContainer = document.getElementById('indicator');
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'indicator-dot';
+                if (i === 0) dot.classList.add('active');
+                dot.onclick = () => goToSlide(i);
+                indicatorContainer.appendChild(dot);
+            }
+        }
+
+        function goToSlide(n) {
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            currentSlide = n;
+            slides[currentSlide].classList.add('active');
+            slides[currentSlide].scrollTop = 0;
+            
+            updateIndicators();
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentSlide + 1) % totalSlides;
+            goToSlide(nextIndex);
+        }
+
+        function previousSlide() {
+            const prevIndex = (currentSlide - 1 + totalSlides) % totalSlides;
+            goToSlide(prevIndex);
+        }
+
+        function updateIndicators() {
+            const dots = document.querySelectorAll('.indicator-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) previousSlide();
+        });
+
+        createIndicators();
+    </script>
+</body>
+</html>
