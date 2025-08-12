@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBAUTO v7.2 - 네이버 블로그 자동화 프로그램 베타 테스터 모집</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', sans-serif;
+            background: #ffffff;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            z-index: 1000;
+        }
+
+        .nav {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #03C75A;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-badge {
+            background: linear-gradient(135deg, #03C75A, #00B052);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.875rem 1.75rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: #03C75A;
+            color: white;
+            box-shadow: 0 4px 12px rgba(3, 199, 90, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #02a048;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(3, 199, 90, 0.4);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #03C75A;
+            border: 2px solid #03C75A;
+        }
+
+        .btn-outline:hover {
+            background: #03C75A;
+            color: white;
+        }
+
+        /* Hero */
+        .hero {
+            margin-top: 80px;
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0fdf4 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(3, 199, 90, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge .badge-icon {
+            background: #03C75A;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #1a1a1a;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(90deg, #03C75A, #00B052);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 3rem;
+            max-width: 700px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .hero-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .hero-stat-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(3, 199, 90, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #03C75A;
+        }
+
+        .hero-stat-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .hero-stat-label {
+            font-size: 0.875rem;
+            color: #888;
+        }
+
+        /* Key Feature */
+        .key-feature {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #666;
+        }
+
+        .feature-highlight {
+            background: linear-gradient(135deg, #03C75A 0%, #00B052 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            color: white;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 40px rgba(3, 199, 90, 0.2);
+        }
+
+        .feature-highlight h3 {
+            font-size: 1.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 1.5rem;
+            border-radius: 16px;
+        }
+
+        .feature-item h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feature-item p {
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        /* Modules */
+        .modules {
+            padding: 5rem 2rem;
+            background: #f8f9fa;
+        }
+
+        .module-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .module-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .module-header-top {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .module-number {
+            background: #03C75A;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .module-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .module-status {
+            margin-left: auto;
+            padding: 0.375rem 0.875rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-active {
+            background: rgba(3, 199, 90, 0.1);
+            color: #03C75A;
+        }
+
+        .status-ready {
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366F1;
+        }
+
+        .status-soon {
+            background: rgba(251, 146, 60, 0.1);
+            color: #fb923c;
+        }
+
+        .module-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .module-body {
+            padding: 2rem;
+        }
+
+        .module-features {
+            margin-bottom: 1.5rem;
+        }
+
+        .module-features h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #666;
+            border-bottom: 1px solid #f1f3f5;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #03C75A;
+            font-weight: 700;
+        }
+
+        .module-screenshot {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+            border-radius: 8px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-size: 0.875rem;
+            border: 2px dashed #dee2e6;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .video-placeholder {
+            background: #1a1a1a;
+            aspect-ratio: 16/9;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: rgba(3, 199, 90, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .play-button:hover {
+            background: #03C75A;
+            transform: scale(1.1);
+        }
+
+        .play-icon {
+            width: 0;
+            height: 0;
+            border-left: 25px solid white;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            margin-left: 5px;
+        }
+
+        .video-info {
+            padding: 2rem 1rem 1rem;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+
+        .video-desc {
+            color: #666;
+        }
+
+        /* Download */
+        .download-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #03C75A 0%, #00B052 100%);
+            color: white;
+        }
+
+        .download-box {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .download-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+        }
+
+        .download-desc {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            margin-bottom: 3rem;
+        }
+
+        .download-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .download-stat {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .download-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .download-stat-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .download-steps {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .step-number {
+            background: white;
+            color: #03C75A;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .step-content {
+            text-align: left;
+        }
+
+        .step-title {
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-desc {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .step-arrow {
+            color: rgba(255,255,255,0.5);
+            font-size: 1.5rem;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-white {
+            background: white;
+            color: #03C75A;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-ghost:hover {
+            background: white;
+            color: #03C75A;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #03C75A;
+        }
+
+        .footer-copy {
+            color: #adb5bd;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .download-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .download-steps {
+                flex-direction: column;
+            }
+
+            .step-arrow {
+                display: none;
+            }
+        }
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px rgba(3, 199, 90, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(3, 199, 90, 0.6), 0 0 60px rgba(3, 199, 90, 0.4); }
+            100% { box-shadow: 0 0 20px rgba(3, 199, 90, 0.3); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-10px); }
+            75% { transform: translateY(5px); }
+        }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-on-scroll.delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .animate-on-scroll.delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .animate-on-scroll.delay-300 {
+            transition-delay: 0.3s;
+        }
+
+        /* Enhanced Effects */
+        .hero {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(3, 199, 90, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .gradient-text {
+            background-size: 200% 200%;
+            animation: gradient 3s ease infinite;
+        }
+
+        .hero-badge {
+            animation: slideInUp 0.8s ease-out;
+        }
+
+        .hero h1 {
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-desc {
+            animation: slideInUp 1.2s ease-out;
+        }
+
+        .hero-stat {
+            animation: slideInUp 1.4s ease-out;
+        }
+
+        .hero-stat:hover .hero-stat-icon {
+            animation: bounce 0.6s ease-out;
+        }
+
+        .logo {
+            transition: all 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .module-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(3, 199, 90, 0.2);
+        }
+
+        .module-card:hover .module-number {
+            animation: pulse 1s infinite;
+        }
+
+        .feature-item {
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+
+        .feature-highlight {
+            position: relative;
+            overflow: hidden;
+            animation: glow 3s infinite;
+        }
+
+        .feature-highlight::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .download-stat {
+            transition: all 0.3s;
+        }
+
+        .download-stat:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .download-stat-number {
+            animation: pulse 2s infinite;
+        }
+
+        .play-button {
+            position: relative;
+        }
+
+        .play-button::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: rgba(3, 199, 90, 0.4);
+            border-radius: 50%;
+            animation: ripple 2s infinite;
+        }
+
+        @keyframes ripple {
+            0% {
+                width: 100%;
+                height: 100%;
+                opacity: 1;
+            }
+            100% {
+                width: 200%;
+                height: 200%;
+                opacity: 0;
+            }
+        }
+
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Floating elements */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .module-status {
+            animation: pulse 2s infinite;
+        }
+
+        /* Number Counter Effect */
+        .counter {
+            display: inline-block;
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            will-change: transform;
+        }
+
+        /* Loading Animation */
+        .loading-bar {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loading-bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(3, 199, 90, 0.3), transparent);
+            animation: loading 2s infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">
+                🚀 NBAUTO
+                <span class="logo-badge">v7.2 BETA</span>
+            </div>
+            <div class="nav-buttons">
+                <a href="https://cafe.naver.com/nblauto" target="_blank" class="btn btn-outline">
+                    <span>☕</span> 카페 가입
+                </a>
+                <a href="#download" class="btn btn-primary">
+                    <span>⬇️</span> 무료 다운로드
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-icon">🔥</span>
+                <span>베타 테스터 모집 중 - 완전 무료</span>
+            </div>
+            
+            <h1>
+                네이버 블로그 운영<br>
+                <span class="gradient-text">4시간 작업을 30분으로</span>
+            </h1>
+            
+            <p class="hero-desc">
+                블로그 분석부터 키워드 발굴, 콘텐츠 생성, 이미지 제작, 자동 발행까지<br>
+                Claude AI와 Gemini를 브라우저에서 직접 활용하는 올인원 자동화 프로그램
+            </p>
+
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-icon floating">📊</div>
+                    <div class="hero-stat-text">
+                        <span class="hero-stat-number counter">8</span>
+                        <span class="hero-stat-label">통합 워크플로우</span>
+                    </div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-icon floating" style="animation-delay: 0.5s;">💰</div>
+                    <div class="hero-stat-text">
+                        <span class="hero-stat-number">API 비용 0원</span>
+                        <span class="hero-stat-label">브라우저 직접 연동</span>
+                    </div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-icon floating" style="animation-delay: 1s;">🛡️</div>
+                    <div class="hero-stat-text">
+                        <span class="hero-stat-number">봇 감지 회피</span>
+                        <span class="hero-stat-label">안전한 자동화</span>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem;">
+                <a href="#modules" class="btn btn-primary" style="font-size: 1.125rem; padding: 1rem 2rem;">
+                    기능 자세히 보기 →
+                </a>
+                <a href="https://blog.naver.com/realestate2-11" target="_blank" class="btn btn-outline" style="font-size: 1.125rem; padding: 1rem 2rem;">
+                    실제 사용 사례
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="key-feature">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">🎯 핵심 경쟁력</h2>
+                <p class="section-subtitle">왜 NBAUTO가 다른가요?</p>
+            </div>
+
+            <div class="feature-highlight">
+                <h3>📈 스마트 키워드 발굴 시스템</h3>
+                <p style="margin-bottom: 2rem; opacity: 0.95;">
+                    네이버 검색 알고리즘을 역이용한 독자적인 키워드 발굴 전략으로<br>
+                    블로그 등급에 관계없이 상위 노출을 달성합니다
+                </p>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <h4>🔍 블루오션 키워드 발견</h4>
+                        <p>검색량은 많지만 문서수가 적고 월 발행량이 낮은 키워드 자동 발견</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🏆 등급별 맞춤 추천</h4>
+                        <p>블덱스 점수에 따라 현재 등급에서 상위 노출 가능한 키워드 선별</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>📊 경쟁도 실시간 분석</h4>
+                        <p>키워드별 경쟁 블로그 수, 평균 문서 길이, 이미지 수 종합 분석</p>
+                    </div>
+                    <div class="feature-item">
+                        <h4>🤖 봇 감지 회피 기술</h4>
+                        <p>PyAutoGUI 기반 휴먼라이크 패턴으로 자연스러운 발행 프로세스</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="modules" id="modules">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">통합 모듈 상세 기능</h2>
+                <p class="section-subtitle">8개 모듈이 하나로 연결된 완벽한 워크플로우</p>
+            </div>
+
+            <div class="module-grid">
+                <!-- Module 1 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-header-top">
+                            <span class="module-number">1</span>
+                            <h3 class="module-title">블로그 분석</h3>
+                            <span class="module-status status-active">활성화</span>
+                        </div>
+                        <p class="module-desc">
+                            RSS와 네이버 방문자 API로 블로그 현재 상태를 정밀 진단
+                        </p>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-features">
+                            <h4>주요 기능</h4>
+                            <ul class="feature-list">
+                                <li>RSS 기반 전체 포스트 수집 및 키워드 추출</li>
+                                <li>방문자 데이터 실시간 수집 (일별/주별/월별)</li>
+                                <li>블덱스 점수 및 등급 자동 산출</li>
+                                <li>키워드별 노출/클릭률 분석</li>
+                                <li>경쟁 블로그 대비 성과 비교</li>
+                            </ul>
+                        </div>
+                        <div class="module-screenshot">
+                            <div class="screenshot-placeholder">
+                                블로그 분석 화면 스크린샷
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-header-top">
+                            <span class="module-number">2</span>
+                            <h3 class="module-title">키워드 생성</h3>
+                            <span class="module-status status-active">활성화</span>
+                        </div>
+                        <p class="module-desc">
+                            Gemini AI 활용 키워드 팩 생성과 사용자 선택 하이브리드 방식
+                        </p>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-features">
+                            <h4>주요 기능</h4>
+                            <ul class="feature-list">
+                                <li>AI 기반 연관 키워드 자동 생성</li>
+                                <li>검색량 vs 문서수 비율 분석</li>
+                                <li>월 발행량 기반 경쟁도 측정</li>
+                                <li>롱테일 키워드 자동 조합</li>
+                                <li>추천도 % 표시 (95%, 88% 등)</li>
+                            </ul>
+                        </div>
+                        <div class="module-screenshot">
+                            <div class="screenshot-placeholder">
+                                키워드 생성 화면 스크린샷
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-header-top">
+                            <span class="module-number">3</span>
+                            <h3 class="module-title">콘텐츠 준비</h3>
+                            <span class="module-status status-ready">준비됨</span>
+                        </div>
+                        <p class="module-desc">
+                            사용자 프로필과 프롬프트 중앙 관리로 일관된 톤앤매너 유지
+                        </p>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-features">
+                            <h4>주요 기능</h4>
+                            <ul class="feature-list">
+                                <li>사용자 프로필 중앙 관리 (SharedDataManager)</li>
+                                <li>프롬프트 플레이스홀더 자동 치환</li>
+                                <li>수동 글쓰기 모드 (제목/본문 직접 입력)</li>
+                                <li>AI 추천 제목/키워드/니즈 제안</li>
+                                <li>자동/수동 모드 전환</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-header-top">
+                            <span class="module-number">4</span>
+                            <h3 class="module-title">통합 콘텐츠 생성</h3>
+                            <span class="module-status status-active">활성화</span>
+                        </div>
+                        <p class="module-desc">
+                            Claude AI와 Gemini 브라우저 직접 연동으로 API 비용 제로
+                        </p>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-features">
+                            <h4>주요 기능</h4>
+                            <ul class="feature-list">
+                                <li>Claude AI 브라우저 직접 연동 (API 비용 무료)</li>
+                                <li>Gemini 스타일링 적용</li>
+                                <li>HTML 태그 자동 적용 및 포맷팅</li>
+                                <li>Word(DOCX) 자동 내보내기</li>
+                                <li>자동화 모드 감지 및 전체 시퀀스 실행</li>
+                            </ul>
+                        </div>
+                        <div class="module-screenshot">
+                            <div class="screenshot-placeholder">
+                                통합 생성 화면 스크린샷
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-header-top">
+                            <span class="module-number">5</span>
+                            <h3 class="module-title">이미지 자동 생성</h3>
+                            <span class="module-status status-active">활성화</span>
+                        </div>
+                        <p class="module-desc">
+                            6개 브라우저 탭 동시 실행으로 대량 이미지 고속 생성
+                        </p>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-features">
+                            <h4>주요 기능</h4>
+                            <ul class="feature-list">
+                                <li>6개 탭 병렬 처리로 생성 속도 극대화</li>
+                                <li>프롬프트 자동 주입 및 실행</li>
+                                <li>타임아웃 및 재시도 로직</li>
+                                <li>이미지 경로 중앙 관리</li>
+                                <li>실패 시 대체 이미지 자동 저장</li>
+                            </ul>
+                        </div>
+                        <div class="module-screenshot">
+                            <div class="screenshot-placeholder">
+                                이미지 생성 화면 스크린샷
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 6 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-header-top">
+                            <span class="module-number">6</span>
+                            <h3 class="module-title">이미지 편집</h3>
+                            <span class="module-status status-active">활성화</span>
+                        </div>
+                        <p class="module-desc">
+                            6장 동시 편집 + 10장 순서 편집기로 완벽한 이미지 관리
+                        </p>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-features">
+                            <h4>이미지 순서 편집기</h4>
+                            <ul class="feature-list">
+                                <li>최대 10장 이미지 드래그앤드롭 재정렬</li>
+                                <li>인덱스 배지 및 파일명 표시</li>
+                                <li>이미지별 설명 텍스트 입력</li>
+                                <li>정렬된 경로와 설명을 다음 모듈로 전달</li>
+                            </ul>
+                            <h4 style="margin-top: 1.5rem;">편집 기능</h4>
+                            <ul class="feature-list">
+                                <li>텍스트/박스 오버레이 추가</li>
+                                <li>워터마크 일괄 적용</li>
+                                <li>네이버 스타일 컬러세트 제공</li>
+                                <li>레이어 관리 및 자동화 모드</li>
+                            </ul>
+                        </div>
+                        <div class="module-screenshot">
+                            <div class="screenshot-placeholder">
+                                이미지 편집 화면 스크린샷
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 7 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-header-top">
+                            <span class="module-number">7</span>
+                            <h3 class="module-title">블로그 자동 발행</h3>
+                            <span class="module-status status-ready">준비됨</span>
+                        </div>
+                        <p class="module-desc">
+                            PyAutoGUI 휴먼라이크 패턴으로 안전한 자동 발행
+                        </p>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-features">
+                            <h4>주요 기능</h4>
+                            <ul class="feature-list">
+                                <li>브라우저 자동 실행 및 활성화</li>
+                                <li>작성 페이지 자동 이동</li>
+                                <li>발행 버튼 자동 클릭</li>
+                                <li>예약 시간 자동 설정</li>
+                                <li>발행 URL 자동 복사 및 저장</li>
+                                <li>실패 시 백업 루트 자동 실행</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 8 -->
+                <div class="module-card">
+                    <div class="module-header">
+                        <div class="module-header-top">
+                            <span class="module-number">8</span>
+                            <h3 class="module-title">인스타그램 발행</h3>
+                            <span class="module-status status-soon">준비중</span>
+                        </div>
+                        <p class="module-desc">
+                            블로그 콘텐츠를 인스타그램용으로 자동 변환 발행
+                        </p>
+                    </div>
+                    <div class="module-body">
+                        <div class="module-features">
+                            <h4>예정 기능</h4>
+                            <ul class="feature-list">
+                                <li>블로그 본문 → 인스타 캡션 자동 변환</li>
+                                <li>이미지 1:1 비율 자동 리사이징</li>
+                                <li>해시태그 자동 생성</li>
+                                <li>스토리/릴스 템플릿 제공</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">📹 사용법 영상 가이드</h2>
+                <p class="section-subtitle">10분 만에 마스터하는 NBAUTO</p>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">설치부터 첫 발행까지 완벽 가이드</h3>
+                    <p class="video-desc">프로그램 설치, 초기 설정, 블로그 분석, 콘텐츠 생성, 발행까지 전 과정</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="download-section" id="download">
+        <div class="download-box">
+            <h2 class="download-title">지금 바로 시작하세요</h2>
+            <p class="download-desc">
+                베타 테스터로 참여하고 무료로 모든 기능을 사용해보세요<br>
+                API 비용 걱정 없이 Claude와 Gemini를 마음껏 활용하세요
+            </p>
+
+            <div class="download-stats">
+                <div class="download-stat animate-on-scroll delay-100">
+                    <div class="download-stat-number">50MB</div>
+                    <div class="download-stat-label">가벼운 용량</div>
+                </div>
+                <div class="download-stat animate-on-scroll delay-200">
+                    <div class="download-stat-number">Windows</div>
+                    <div class="download-stat-label">모든 버전 호환</div>
+                </div>
+                <div class="download-stat animate-on-scroll delay-300">
+                    <div class="download-stat-number">무제한</div>
+                    <div class="download-stat-label">테스터 모집</div>
+                </div>
+                <div class="download-stat animate-on-scroll">
+                    <div class="download-stat-number counter">100</div>
+                    <div class="download-stat-label">완전 무료</div>
+                </div>
+            </div>
+
+            <div class="download-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">카페 가입</div>
+                        <div class="step-desc">가입 승인 대기</div>
+                    </div>
+                </div>
+                <span class="step-arrow">→</span>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">다운로드</div>
+                        <div class="step-desc">프로그램 설치</div>
+                    </div>
+                </div>
+                <span class="step-arrow">→</span>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">피드백</div>
+                        <div class="step-desc">버그 리포트</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="download-buttons">
+                <a href="https://cafe.naver.com/nblauto" target="_blank" class="btn-white">
+                    ☕ 카페 가입하기
+                </a>
+                <a href="#" class="btn-ghost">
+                    ⬇️ 무료 다운로드
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://cafe.naver.com/nblauto" target="_blank">공식 카페</a>
+                <a href="https://blog.naver.com/realestate2-11" target="_blank">테스트 블로그</a>
+                <a href="#">설치 가이드</a>
+                <a href="#">FAQ</a>
+                <a href="#">버그 리포트</a>
+            </div>
+            <p class="footer-copy">© 2025 NBAUTO v7.2 - 네이버 블로그 자동화 프로그램</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Counter animation for stats
+                    if (entry.target.classList.contains('counter')) {
+                        animateCounter(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animatable elements
+        document.querySelectorAll('.module-card, .feature-item, .download-stat, .hero-stat').forEach(el => {
+            el.classList.add('animate-on-scroll');
+            observer.observe(el);
+        });
+
+        // Counter Animation
+        function animateCounter(element) {
+            const target = parseInt(element.innerText);
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    element.innerText = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.innerText = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
+
+        // Parallax Effect on Scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelectorAll('.parallax');
+            
+            parallax.forEach(element => {
+                const speed = element.dataset.speed || 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+
+            // Header background on scroll
+            const header = document.querySelector('.header');
+            if (scrolled > 50) {
+                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.08)';
+            }
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mouse Move Effect
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.module-card');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            cards.forEach(card => {
+                card.style.transform = `
+                    perspective(1000px)
+                    rotateY(${(x - 0.5) * 2}deg)
+                    rotateX(${(y - 0.5) * -2}deg)
+                `;
+            });
+        });
+
+        // Typing Effect for Hero Title
+        const heroTitle = document.querySelector('.hero h1');
+        if (heroTitle) {
+            const text = heroTitle.innerHTML;
+            heroTitle.innerHTML = '';
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    heroTitle.innerHTML = text.slice(0, i + 1);
+                    i++;
+                    setTimeout(typeWriter, 30);
+                }
+            }
+            
+            setTimeout(typeWriter, 500);
+        }
+
+        // Add floating animation to badges
+        document.querySelectorAll('.module-status, .hero-badge').forEach(el => {
+            el.classList.add('floating');
+        });
+
+        // Ripple effect on button click
+        document.querySelectorAll('.btn, .btn-primary, .btn-outline').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+
+                const x = e.clientX - e.target.offsetLeft;
+                const y = e.clientY - e.target.offsetTop;
+
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add hover sound effect (optional)
+        const hoverSound = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTgJGmm98OScTgwOUarl7a1iHAkzevTu39qNWRkwUYzCyqS83MjPx8yNWztRP1FVg4eBVEUBA1+nuvGdepPQwX3ixG');
+
+        // Loading animation for images
+        document.querySelectorAll('.screenshot-placeholder').forEach(placeholder => {
+            placeholder.classList.add('loading-bar');
+        });
+    </script>
+
+    <style>
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            transform: scale(0);
+            animation: ripple-animation 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</body>
+</html>
